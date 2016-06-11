@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 
+import { BookData } from '../api/bookData'
+
 export default class BookInfo extends Component {
 
   constructor() {
@@ -7,18 +9,79 @@ export default class BookInfo extends Component {
 
     this.showInfo = this.showInfo.bind(this);
     this.clear = this.clear.bind(this);
+    this.preview = this.preview.bind(this);
+    this.tradeBook = this.tradeBook.bind(this);
   }
 
   showInfo(e, arg) {
     let a = e.target.parentElement;
     let info = document.createElement("DIV");
     info.setAttribute("class", "info");
-    info.innerHTML = this.props.d.description;
+    if(arg === "d") {
+      info.innerHTML = this.props.d.description;
+    }
+    else if(arg === "o") {
+      let com = this.props.d.userComments;
+      if(com) {
+        let all = $.map(com, function(n) {
+          return n
+        });
+        info.innerHTML = all.join(" -- ");
+      } else {
+        info.innerHTML = "no user comments";
+      }
+    }
     a.appendChild(info);
   }
 
   clear() {
     $(".info").remove();
+  }
+
+  preview() {
+    let url = this.props.d.previewLink;
+    window.open(url,'_blank');
+  }
+
+  tradeBook(e) {
+    let title = this.props.d.title;
+    let user = Meteor.user().username;
+    let currentOwner = this.props.user;
+    if(user !== currentOwner) {
+
+      let myBooks = BookData.find({user: Meteor.user().username}).fetch();
+
+      let a = e.target.parentElement;
+      let info = document.createElement("DIV");
+      info.setAttribute("class", "info");
+      info.innerHTML = "Choose a book to trade";
+
+      myBooks[0].books.map(function(book) {
+        let button = document.createElement("BUTTON");
+        button.setAttribute("class", 'my-books-for-trade');
+        button.innerHTML = book.title;
+        button.onclick = function() {
+          console.log(title , " -- > ", book.title , "from", currentOwner, "by", user, " -- ");
+          Meteor.call("bookData.addOffer", user, currentOwner, title, book.title);
+        };
+        info.appendChild(button);
+      });
+
+      let button2 = document.createElement("BUTTON");
+      button2.setAttribute("id", "ask-for-free");
+      button2.innerHTML = "ask for free, who knows!";
+      button2.onclick = function() {
+        console.log(title , " -- > ", "free" , "from", currentOwner, "by", user, " -- ");
+        Meteor.call("bookData.addOffer", user, currentOwner, title, "free");
+      };
+      info.appendChild(button2);
+
+      a.appendChild(info);
+
+      //console.log(myBooks);
+    } else {
+      console.log("you can't trade with yourself");
+    }
   }
 
   render() {
@@ -47,10 +110,10 @@ export default class BookInfo extends Component {
             Owner: {this.props.user}
           </div>
         </div>
-        <button className="trade-button"> Trade </button>
-        <button className="preview-button"> Preview </button>
+        <button className="trade-button" onClick={(e) => this.tradeBook(e)}> Trade </button>
+        <button className="preview-button" onClick={this.preview}> Preview </button>
         <button className="description-button" onClick={(e) => this.showInfo(e, "d")}> Description </button>
-        <button className="owner-opinion-button"> Owner Opinion </button>
+        <button className="owner-opinion-button" onClick={(e) => this.showInfo(e, "o")}> Owner Opinion </button>
       </div>
     )
   }

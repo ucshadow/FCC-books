@@ -12,6 +12,8 @@ class MyBooks extends Component {
 
     this.dBooks = this.dBooks.bind(this);
     this.displayAllMyBooks = this.displayAllMyBooks.bind(this);
+    this.tradeRequests = this.tradeRequests.bind(this);
+    this.tradeOffers = this.tradeOffers.bind(this);
   }
 
   dBooks() {
@@ -26,10 +28,29 @@ class MyBooks extends Component {
     })
   }
 
+  tradeRequests() {
+    return this.props.bookData.map((user_) => {
+      if(user_.user === Meteor.user().username) {
+        return <button key={Math.random()} className="my-trade-requests"> Trade requests: {user_.trades.requests.length} </button>
+      }
+    })
+  }
+
+  tradeOffers() {
+    return this.props.bookData.map((user_) => {
+      if(user_.user === Meteor.user().username) {
+        return <button key={Math.random()} className="my-trade-offers"> Trade offers: {user_.trades.offers.length} </button>
+      }
+    })
+  }
+
   render() {
     return (
       <div>
+        {this.tradeRequests()}
+        {this.tradeOffers()}
         {this.displayAllMyBooks()}
+        <button onClick={this.dBooks}> INFO </button>
       </div>
     )
   }
