@@ -1,0 +1,120 @@
+.single-book-result {
+  float: left;
+  cursor: pointer;
+  width: 10em;
+  height: 16em;
+  border: black 2px solid;
+  margin-left: 1em;
+  margin-top: 1em;
+  padding: 1em;
+}
+
+.single-book {
+  position: relative;
+  float: left;
+  width: 20em;
+  height: 32em;
+  border: black 2px solid;
+  margin-left: 1em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  padding: 1em;
+  text-align: center;
+}
+
+.search-result-img {
+  height: 100%;
+  width: 100%;
+}
+
+.all-my-books-img {
+  height: 50%;
+  width: 50%;
+  border: black 2px solid;
+}
+
+.search-result-container {
+  position: relative;
+}
+
+.book-title {
+  height: 4em;
+  font-weight: bold;
+  text-align: center;
+}
+
+.book-subtitle {
+  font-size: 0.8em;
+}
+
+.book-owner {
+  font-weight: bold;
+  text-align: center;
+}
+
+.book-facts {
+  margin-top: 1.5em;
+}
+
+.trade-button {
+  position: absolute;
+  width: 50%;
+  height: 1.5em;
+  bottom: 0;
+  left: 0;
+  background: none;
+  border: none;
+  border-top: 2px black solid;
+  border-right: 2px black solid;
+  outline: none;
+}
+
+.preview-button {
+  position: absolute;
+  width: 50%;
+  height: 1.5em;
+  bottom: 0;
+  right: 0;
+  background: none;
+  border: none;
+  border-top: 2px black solid;
+  outline: none;
+}
+
+.description-button {
+  position: absolute;
+  width: 50%;
+  height: 1.5em;
+  bottom: 1.5em;
+  left: 0;
+  background: none;
+  border: none;
+  border-top: 2px black solid;
+  border-right: 2px black solid;
+  outline: none;
+}
+
+.owner-opinion-button {
+  position: absolute;
+  width: 50%;
+  height: 1.5em;
+  bottom: 1.5em;
+  right: 0;
+  background: none;
+  border: none;
+  border-top: 2px black solid;
+  outline: none;
+}
+
+.info {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  left: 0;
+  height: 90%;
+  background: gray;
+  padding: 0.2em;
+  word-wrap: break-word;
+  overflow:scroll;
+  overflow-x: hidden;
+}
