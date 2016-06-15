@@ -61,6 +61,13 @@ Meteor.methods({
       requests.push(tradeInverted);
       BookData.update(him._id, {$set: {trades: {offers: him.trades.offers, requests: requests}}}, {upsert: true});
     }
+  },
+
+  'bookData.refuseTrade'(trade) {
+    let target = trade.tar[0];
+    let you = trade.you[0];
+
+
   }
 
 });

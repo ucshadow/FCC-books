@@ -4,6 +4,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { BookData } from '../api/bookData'
 import AddBook from '../ui/AddBook.jsx'
 import SingleBook from '../ui/SingleBook.jsx'
+import TradeOffers from '../ui/TradeOffers.jsx'
 
 class MyBooks extends Component {
 
@@ -39,7 +40,7 @@ class MyBooks extends Component {
   tradeOffers() {
     return this.props.bookData.map((user_) => {
       if(user_.user === Meteor.user().username) {
-        return <button key={Math.random()} className="my-trade-offers"> Trade offers: {user_.trades.offers.length} </button>
+        return <TradeOffers key={Math.random()} d={user_.trades.offers} />
       }
     })
   }
