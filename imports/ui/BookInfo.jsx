@@ -69,9 +69,12 @@ export default class BookInfo extends Component {
   }
 
   render() {
-    let a = this.props.d.volumeInfo.imageLinks.smallThumbnail;
-    let b = a.split(":")[0] + "s:";
-    let img = b + a.split(":")[1];
+    let img;
+    if(this.props.d.imageLinks) {
+      let a = this.props.d.imageLinks.smallThumbnail;
+      let b = a.split(":")[0] + "s:";
+      img = b + a.split(":")[1]
+    }
     return (
       <div className="single-book" onMouseLeave={this.clear}>
         <div id="r-w-d" style={{position: "relative"}}>
