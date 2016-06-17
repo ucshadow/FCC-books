@@ -30,11 +30,17 @@ export default class SearchResult extends Component {
   }
 
   checkProps() {
+    let img;
+    if(this.props.d.volumeInfo.imageLinks) {
+      let a = this.props.d.volumeInfo.imageLinks.smallThumbnail;
+      let b = a.split(":")[0] + "s:";
+      img = b + a.split(":")[1]
+    }
     if(this.props.d) {
       return (
         <div onClick={this.addThis}>
           <img className="search-result-img" src={this.props.d.volumeInfo.imageLinks ?
-          this.props.d.volumeInfo.imageLinks.smallThumbnail : null} />
+          img : null} />
         </div>
       )
     } else {
