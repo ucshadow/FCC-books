@@ -69,13 +69,16 @@ export default class BookInfo extends Component {
   }
 
   render() {
+    let a = this.props.d.volumeInfo.imageLinks.smallThumbnail;
+    let b = a.split(":")[0] + "s:";
+    let img = b + a.split(":")[1];
     return (
       <div className="single-book" onMouseLeave={this.clear}>
         <div id="r-w-d" style={{position: "relative"}}>
           <div className="book-title">
             {this.props.d.title}
           </div>
-          <img className="all-my-books-img" src={this.props.d.imageLinks.smallThumbnail} />
+          <img className="all-my-books-img" src={img} />
           <div className="book-facts">
             <div className="book-author">
               {(this.props.d.authors.length > 1 ? "Authors: " : "Author: ")} {this.props.d.authors.join(" ")}
