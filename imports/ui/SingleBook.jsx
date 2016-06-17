@@ -67,12 +67,18 @@ class ParseBook extends Component {
   }
 
   render() {
+    let img;
+    if(this.props.d.imageLinks) {
+      let a = this.props.d.imageLinks.smallThumbnail;
+      let b = a.split(":")[0] + "s:";
+      img = b + a.split(":")[1]
+    }
     return (
       <div className="single-book">
         <div className="book-title">
           {this.props.d.title}
         </div>
-        <img className="all-my-books-img" src={this.props.d.imageLinks.smallThumbnail} />
+        <img className="all-my-books-img" src={img} />
         <button className="trade-button" onClick={this.addComment} > Comment </button>
         {this.state.commenting ? <button className="preview-button" onClick={this.submitComment}> Submit </button> :
           null}
