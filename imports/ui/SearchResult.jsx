@@ -13,16 +13,20 @@ export default class SearchResult extends Component {
   addThis() {
     let alert = $("#alerts");
     let allData = this.props.d.volumeInfo;
-    Meteor.call("bookData.addBook", allData, function(err, res) {
-      if(err) {
-        console.log(err);
-      }
-      if(res === "already") {
-        alert.text("You already have that book in your collection!")
-      } else {
-        alert.text("Added " + allData.title + " to your collection");
-      }
-    });
+    if(Meteor.user()) {
+      Meteor.call("bookData.addBook", allData, function(err, res) {
+        if(err) {
+          console.log(err);
+        }
+        if(res === "already") {
+          alert.text("You already have that book in your collection!")
+        } else {
+          alert.text("Added " + allData.title + " to your collection");
+        }
+      });
+    } else {
+      alert.text("Please Log In to add a book")
+    }
   }
 
   checkProps() {

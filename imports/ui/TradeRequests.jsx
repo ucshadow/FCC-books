@@ -1,17 +1,17 @@
 import React, { Component, PropTypes } from 'react'
 
 
-export default class TradeOffers extends Component {
+export default class TradeRequests extends Component {
 
   constructor() {
     super();
     this.state = {showingOffers: false};
 
-    this.showOffers = this.showOffers.bind(this);
+    this.showRequests = this.showRequests.bind(this);
     this.renderOffers = this.renderOffers.bind(this);
   }
 
-  showOffers() {
+  showRequests() {
     if(!this.state.showingOffers) {
       this.setState({showingOffers: true})
     } else {
@@ -22,7 +22,7 @@ export default class TradeOffers extends Component {
   renderOffers() {
     if(this.state.showingOffers) {
       return this.props.d.map((offer) => {
-        return <RenderOffers key={Math.random()} d={offer} />
+        return <RenderRequests key={Math.random()} d={offer} />
       })
     }
   }
@@ -30,10 +30,10 @@ export default class TradeOffers extends Component {
   render() {
     return (
       <div className="trades-container">
-        <button key={Math.random()} className="my-trade-offers" onClick={this.showOffers}>
-          Trade offers: {this.props.d.length}
+        <button key={Math.random()} className="my-trade-requests" onClick={this.showRequests}>
+          Trade requests: {this.props.d.length}
         </button>
-        <div className="showing-offers" >
+        <div className="showing-requests" >
           {this.renderOffers()}
         </div>
       </div>
@@ -43,7 +43,7 @@ export default class TradeOffers extends Component {
 }
 
 
-class RenderOffers extends Component {
+class RenderRequests extends Component {
 
   constructor() {
     super();
@@ -65,7 +65,7 @@ class RenderOffers extends Component {
     return (
       <div className="single-offer">
         <div className="offer-terms">
-          offer {o.tar[0]} your book: {o.tar[1]}  for: {o.you[1]}
+          {o.tar[0]} wants {o.tar[1]}  for your book - {o.you[1]}
         </div>
         <button onClick={this.acceptTrade}> V </button>
         <button onClick={this.refuseTrade}> X </button>

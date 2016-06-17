@@ -12,6 +12,7 @@ import NotFound from '../imports/ui/NotFound.jsx';
 import MyBooks from '../imports/ui/MyBooks.jsx';
 import AddBook from '../imports/ui/AddBook.jsx';
 import AllBooks from '../imports/ui/AllBooks.jsx';
+import Profile from '../imports/ui/Profile.jsx';
 
 
 export const renderRoutes = () => (
@@ -22,6 +23,7 @@ export const renderRoutes = () => (
       <Route path="myBooks" component={ MyBooks } />
       <Route path="addBook" component={ AddBook } />
       <Route path="allBooks" component={ AllBooks } />
+      <Route path="profile" component={ Profile } />
       <Route path="*" component={ NotFound } />
     </Route>
   </Router>

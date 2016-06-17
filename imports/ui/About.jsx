@@ -1,12 +1,41 @@
 import React from 'react'
-import { render } from 'react-dom'
 
 
 export default class About extends React.Component {
 
   render() {
     return (
-      <div> Hi from About </div>
+      <div className="about-container">
+        <span>
+          A site made by Catalin for freecodecamp.com -- Manage a Book Trading Club
+        </span>
+        <br />
+        The site uses:
+        <ul>
+          <li>
+            Meteor
+          </li>
+          <li>
+            MongoDB
+          </li>
+          <li>
+            React
+          </li>
+          <li>
+            React Router
+          </li>
+        </ul>
+        <span>
+          Default login:
+          <br />
+          Username: Creator
+          <br />
+          Password: creator
+        </span>
+        <br />
+        <br />
+        <a href="https://github.com/ucshadow/FCC-books.git"> Github Repo </a>
+      </div>
     )
   }
 }

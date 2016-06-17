@@ -1,7 +1,1 @@
-# Simple Meteor React starting template
-
- - Meteor
- - React
- - React Router
- - Accounts UI | password | Facebook | Twitter | Github | Google
- - bootstrap
+# A site made by Catalin for freecodecamp.com -- Manage a Book Trading Club

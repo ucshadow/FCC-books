@@ -48,37 +48,21 @@ export default class BookInfo extends Component {
     let user = Meteor.user().username;
     let currentOwner = this.props.user;
     if(user !== currentOwner) {
-
       let myBooks = BookData.find({user: Meteor.user().username}).fetch();
-
       let a = e.target.parentElement;
       let info = document.createElement("DIV");
       info.setAttribute("class", "info");
       info.innerHTML = "Choose a book to trade";
-
       myBooks[0].books.map(function(book) {
         let button = document.createElement("BUTTON");
         button.setAttribute("class", 'my-books-for-trade');
         button.innerHTML = book.title;
         button.onclick = function() {
-          console.log(title , " -- > ", book.title , "from", currentOwner, "by", user, " -- ");
           Meteor.call("bookData.addOffer", user, currentOwner, title, book.title);
         };
         info.appendChild(button);
       });
-
-      let button2 = document.createElement("BUTTON");
-      button2.setAttribute("id", "ask-for-free");
-      button2.innerHTML = "ask for free, who knows!";
-      button2.onclick = function() {
-        console.log(title , " -- > ", "free" , "from", currentOwner, "by", user, " -- ");
-        Meteor.call("bookData.addOffer", user, currentOwner, title, "free");
-      };
-      info.appendChild(button2);
-
       a.appendChild(info);
-
-      //console.log(myBooks);
     } else {
       console.log("you can't trade with yourself");
     }

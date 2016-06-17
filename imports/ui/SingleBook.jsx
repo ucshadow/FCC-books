@@ -5,7 +5,6 @@ export default class SingleBook extends Component {
 
   constructor(props) {
     super(props);
-    console.log(this.props.d);
     this.bookInfo = this.bookInfo.bind(this);
   }
 

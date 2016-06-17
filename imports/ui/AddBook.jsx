@@ -25,18 +25,16 @@ export default class AddBook extends Component {
   searchBook() {
     let stateFunction = this.changeState;
     let url = "https://www.googleapis.com/books/v1/volumes?q=" + $("#searchBook").val();
-    console.log(url);
     $.getJSON(url, function(res) {
-      console.log(res);
       return stateFunction(res.items)
     });
   }
 
   render() {
     return (
-      <div>
-        <input type="text" id="searchBook" />
-        <button onClick={this.searchBook} > Search </button>
+      <div className="search-container">
+        <input type="text" id="searchBook" className="input-field"/>
+        <button className="search-button" onClick={this.searchBook} > Search </button>
         <div className="search-for-book">
           {this.state.results.length === 0 ? "Search for a book to add. If there are more results" +
           ", pick the one that you want" : "click on the book you want to add to your collection"}

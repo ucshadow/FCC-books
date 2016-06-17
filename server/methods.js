@@ -38,7 +38,8 @@ Meteor.methods({
   },
 
   'bookData.addOffer'(u, t, u_title, t_title) {
-    let trade = {you: [u, u_title], tar: [t, t_title]};
+    let _id_ = Math.random();
+    let trade = {you: [u, t_title], tar: [t, u_title], _id_: _id_};
     let you = BookData.findOne({user: u});
     let offers = you.trades.offers;
 
@@ -53,21 +54,117 @@ Meteor.methods({
 
     if(!containsObject(trade, offers)) {
       offers.push(trade);
-      BookData.update(you._id, {$set: {trades: {offers: offers, requests: you.trades.requests}}}, {upsert: true});
+      BookData.update(you._id, {$set: {trades: {offers: offers, requests: you.trades.requests}}});
 
-      let tradeInverted = {tar: [u, u_title], you: [t, t_title]};
       let him = BookData.findOne({user: t});
       let requests = him.trades.requests;
-      requests.push(tradeInverted);
-      BookData.update(him._id, {$set: {trades: {offers: him.trades.offers, requests: requests}}}, {upsert: true});
+      requests.push(trade);
+      BookData.update(him._id, {$set: {trades: {offers: him.trades.offers, requests: requests}}});
     }
   },
 
   'bookData.refuseTrade'(trade) {
+    let tradeId = trade._id_;
+    if(Meteor.user().username === trade.you[0] || Meteor.user().username === trade.tar[0]) {
+      let y = BookData.findOne({user: trade.you[0]});
+      let trades = y.trades;
+      let offers = trades.offers;
+      for(let i = 0; i < offers.length; i++) {
+        if(offers[i]._id_ === tradeId) {
+          offers.splice(i, 1);
+          trades.offers = offers;
+        }
+      }
+      BookData.update(y._id, {$set: {trades: trades}});
+
+      let t = BookData.findOne({user: trade.tar[0]});
+      let trades2 = t.trades;
+      let requests = trades2.requests;
+      for(let i = 0; i < requests.length; i++) {
+        if(requests[i]._id_ === tradeId) {
+          requests.splice(i, 1);
+          trades2.requests = requests;
+        }
+      }
+      BookData.update(t._id, {$set: {trades: trades2}});
+    }
+
+  },
+
+  'bookData.acceptTrade'(trade) {
+
+    let tradeId = trade._id_;
+    if(Meteor.user().username === trade.you[0] || Meteor.user().username === trade.tar[0]) {
+      let yy = BookData.findOne({user: trade.you[0]});
+      let trades = yy.trades;
+      let offers = trades.offers;
+      for(let i = 0; i < offers.length; i++) {
+        if(offers[i]._id_ === tradeId) {
+          offers.splice(i, 1);
+          trades.offers = offers;
+        }
+      }
+      BookData.update(yy._id, {$set: {trades: trades}});
+
+      let tt = BookData.findOne({user: trade.tar[0]});
+      let trades2 = tt.trades;
+      let requests = trades2.requests;
+      for(let i = 0; i < requests.length; i++) {
+        if(requests[i]._id_ === tradeId) {
+          requests.splice(i, 1);
+          trades2.requests = requests;
+        }
+      }
+      BookData.update(tt._id, {$set: {trades: trades2}});
+    }
+
+    let username = Meteor.user().username;
     let target = trade.tar[0];
     let you = trade.you[0];
+    let targetBook = trade.tar[1];
+    let yourBook = trade.you[1];
+    if(username === trade.tar[0]) {
+      target = trade.you[0];
+      you = trade.tar[0];
+      targetBook = trade.you[1];
+      yourBook = trade.tar[1];
+    }
+
+    let y = BookData.findOne({user: you});
+    let yBooks = y.books;
+    let yourSwapBookIndex;
+    for(let i = 0; i < yBooks.length; i++) {
+      if(yBooks[i].title === yourBook) {
+        yourSwapBookIndex = i;
+        break;
+      }
+    }
+    //BookData.update(y._id, {$set: {books: yBooks}});
+
+    let t = BookData.findOne({user: target});
+    let tBooks = t.books;
+    let targetSwapBookIndex;
+    for(let i = 0; i < tBooks.length; i++) {
+      if(tBooks[i].title === targetBook) {
+        targetSwapBookIndex = i;
+        break;
+      }
+    }
+
+    let a = yBooks[yourSwapBookIndex];
+    yBooks[yourSwapBookIndex] = tBooks[targetSwapBookIndex];
+    tBooks[targetSwapBookIndex] = a;
 
 
+    BookData.update(y._id, {$set: {books: yBooks}});
+    BookData.update(t._id, {$set: {books: tBooks}});
+
+  },
+
+  'updateUserAddress'(id, address) {
+    if(id === Meteor.userId()) {
+      Meteor.users.update({_id: id}, {$set: {profile: address}});
+    }
   }
 
 });

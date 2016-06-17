@@ -5,20 +5,16 @@ import { BookData } from '../api/bookData'
 import AddBook from '../ui/AddBook.jsx'
 import SingleBook from '../ui/SingleBook.jsx'
 import TradeOffers from '../ui/TradeOffers.jsx'
+import TradeRequests from '../ui/TradeRequests.jsx'
 
 class MyBooks extends Component {
 
   constructor(props) {
     super(props);
 
-    this.dBooks = this.dBooks.bind(this);
     this.displayAllMyBooks = this.displayAllMyBooks.bind(this);
     this.tradeRequests = this.tradeRequests.bind(this);
     this.tradeOffers = this.tradeOffers.bind(this);
-  }
-
-  dBooks() {
-    console.log(this.props.bookData);
   }
 
   displayAllMyBooks() {
@@ -32,7 +28,7 @@ class MyBooks extends Component {
   tradeRequests() {
     return this.props.bookData.map((user_) => {
       if(user_.user === Meteor.user().username) {
-        return <button key={Math.random()} className="my-trade-requests"> Trade requests: {user_.trades.requests.length} </button>
+        return <TradeRequests key={Math.random()} d={user_.trades.requests} />
       }
     })
   }
@@ -48,10 +44,11 @@ class MyBooks extends Component {
   render() {
     return (
       <div>
-        {this.tradeRequests()}
-        {this.tradeOffers()}
+        <div className="trade-buttons">
+          {this.tradeRequests()}
+          {this.tradeOffers()}
+        </div>
         {this.displayAllMyBooks()}
-        <button onClick={this.dBooks}> INFO </button>
       </div>
     )
   }

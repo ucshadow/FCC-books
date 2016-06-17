@@ -1,27 +1,17 @@
 import React, { Component, PropTypes } from 'react'
-import { createContainer } from 'meteor/react-meteor-data';
-import { render } from 'react-dom'
-
 
 export default class Home extends Component {
 
   render() {
     return (
-      <div>
-        Hi from Home
+      <div className="landing-page">
+        <div className="banner">
+        </div>
+        <div className="welcome-screen">
+          <span className="welcome-title">Welcome to your virtual Library</span>
+          <span className="welcome-description"> Log In to add, comment, and trade books with other users </span>
+        </div>
       </div>
     )
   }
 }
-
-
-/*Home.propTypes = {
-  customCollection: PropTypes.array.isRequired
-};
-
-export default createContainer(() => {
-  Meteor.subscribe('customCollection');
-  return {
-    customCollection: CustomCollection.find({}).fetch()
-  };
-}, Home);*/
