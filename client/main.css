@@ -170,6 +170,10 @@
   position: absolute;
 }
 
+#login-dropdown-list {
+  left: -10em!important;
+}
+
 /* end login */
 
 .my-trade-requests {
