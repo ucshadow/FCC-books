@@ -41,15 +41,3 @@ Meteor.startup(() => {
   render(renderRoutes(), document.getElementById('app'));
 
 });
-
-Tracker.autorun(function(c) {
-  // needed to make a trigger for login events because the Blaze template
-  // is not interacting with React and so login and logout wont trigger anything
-  // like a rerender of a React component.
-  // ugly, but only triggers a refresh of the current page on login and logout.
-  var userId = Meteor.userId();
-  if (c.firstRun){
-    return;
-  }
-  userId ? location.reload() : location.reload()
-});
