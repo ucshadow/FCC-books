@@ -49,15 +49,10 @@ class RenderOffers extends Component {
     super();
 
     this.refuseTrade = this.refuseTrade.bind(this);
-    this.acceptTrade = this.acceptTrade.bind(this);
   }
 
   refuseTrade() {
     Meteor.call("bookData.refuseTrade", this.props.d);
-  }
-
-  acceptTrade() {
-    Meteor.call("bookData.acceptTrade", this.props.d);
   }
 
   render() {
@@ -65,10 +60,13 @@ class RenderOffers extends Component {
     return (
       <div className="single-offer">
         <div className="offer-terms">
-          offer {o.tar[0]} your book: {o.tar[1]}  for: {o.you[1]}
+          You offer
+          <span style={{"fontWeight": "bold"}}>
+            {" " + o.tar[0] + " "}
+          </span>
+           your book: {o.you[1]}  for: {o.tar[1]}
         </div>
-        <button onClick={this.acceptTrade}> V </button>
-        <button onClick={this.refuseTrade}> X </button>
+        <button className="search-button x-button" onClick={this.refuseTrade}> Cancel </button>
       </div>
     )
   }

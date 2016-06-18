@@ -266,3 +266,38 @@
   color: #58392c;
   font-size: 3em;
 }
+
+.offer-terms {
+  color: #58392c;
+  top: 1em;
+  position: absolute;
+  left: 1em;
+  overflow: auto;
+  width: 70%;
+}
+
+.x-button {
+  position: absolute;
+  right: 0.5em;
+  top: 1em;
+}
+
+.y-button {
+  position: absolute;
+  right: 11em;
+  top: 1em;
+}
+
+.single-offer {
+  background: #f7e5bf;
+  height: 4em;
+  border: 2px black solid;
+  margin-top: 0.5em;
+  margin-right: 2em;
+  padding: 3px;
+  position: relative;
+}
+
+.showing-requests {
+  margin-left: 13em;
+}

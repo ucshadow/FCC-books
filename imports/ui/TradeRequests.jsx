@@ -65,10 +65,13 @@ class RenderRequests extends Component {
     return (
       <div className="single-offer">
         <div className="offer-terms">
-          {o.tar[0]} wants {o.tar[1]}  for your book - {o.you[1]}
+          <span style={{"fontWeight": "bold"}}>
+            {o.you[0] + " "}
+          </span>
+          wants {o.tar[1]}  for your book - {o.you[1]}
         </div>
-        <button onClick={this.acceptTrade}> V </button>
-        <button onClick={this.refuseTrade}> X </button>
+        <button className="search-button y-button" onClick={this.acceptTrade}> Accept </button>
+        <button className="search-button x-button" onClick={this.refuseTrade}> Cancel </button>
       </div>
     )
   }

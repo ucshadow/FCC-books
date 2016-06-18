@@ -94,7 +94,7 @@ Meteor.methods({
   'bookData.acceptTrade'(trade) {
 
     let tradeId = trade._id_;
-    if(Meteor.user().username === trade.you[0] || Meteor.user().username === trade.tar[0]) {
+    if(Meteor.user().username === trade.tar[0]) {
       let yy = BookData.findOne({user: trade.you[0]});
       let trades = yy.trades;
       let offers = trades.offers;
