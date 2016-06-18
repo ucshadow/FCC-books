@@ -42,15 +42,23 @@ class MyBooks extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <div className="trade-buttons">
-          {this.tradeRequests()}
-          {this.tradeOffers()}
+    if(this.props.user) {
+      return (
+        <div>
+          <div className="trade-buttons">
+            {this.tradeRequests()}
+            {this.tradeOffers()}
+          </div>
+          {this.displayAllMyBooks()}
         </div>
-        {this.displayAllMyBooks()}
-      </div>
-    )
+      )
+    } else {
+      return (
+        <div className="user-info">
+          Please Log In to access your books!
+        </div>
+      )
+    }
   }
 }
 
@@ -62,6 +70,7 @@ MyBooks.propTypes = {
 export default createContainer(() => {
   Meteor.subscribe('bookData');
   return {
-    bookData: BookData.find({}).fetch()
+    bookData: BookData.find({}).fetch(),
+    user: Meteor.user()
   };
 }, MyBooks);
